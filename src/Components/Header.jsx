@@ -20,7 +20,7 @@ const Header = () => {
                         }
                     </ul>
                 </div>
-                <div className='fixed bottom-0 w-full border border-top-2 py-3 left-0 md:hidden'>
+                <div className='fixed z-[99] bg-white bottom-0 w-full border border-top-2 py-3 left-0 md:hidden'>
                     <ul className='flex justify-center gap-4 text-lg'>
                         <li><Link to="/listing">Listing</Link></li>
                         <li><Link to="/create-quiz">Create</Link></li>
