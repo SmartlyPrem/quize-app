@@ -3,13 +3,15 @@ import { MainContext } from '../Context/Index';
 import { useNavigate } from 'react-router-dom';
 
 const Play = () => {
-    const { user, timeLeft, users, current, next, prev, userAnswer, answer, finish, result, playAgain, timer } = useContext(MainContext);
+    const { user, timeLeft, users, timerFunc, current, next, prev, userAnswer, answer, finish, result, playAgain, timer } = useContext(MainContext);
     const navigate = useNavigate();
 
     useEffect(
         () => {
             if (user == null) {
-                navigate('/login')
+                navigate('/login');
+            }else{
+                timerFunc();
             }
         }, [user]
     )
