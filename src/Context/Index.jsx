@@ -66,6 +66,7 @@ const Index = (props) => {
 
     useEffect(
         () => {
+            timerFunc();
             const getCountDown = localStorage.getItem('countDown')
             if (getCountDown != 30) {
                 setTimeLeft(JSON.parse(getCountDown));
@@ -73,7 +74,7 @@ const Index = (props) => {
         }, []
     )
 
-    useEffect(() => {
+    const timerFunc = ()=>{
         if (timeLeft >= 0) {
             localStorage.setItem("countDown", JSON.stringify(timeLeft));
         }
@@ -90,7 +91,10 @@ const Index = (props) => {
             finish();
         }
         return () => clearInterval(intervalId);
+    }
 
+    useEffect(() => {
+        timerFunc();
     }, [timeLeft]
     );
 
@@ -154,7 +158,7 @@ const Index = (props) => {
     }
 
     return (
-        <MainContext.Provider value={{ finish, timeLeft, playAgain, result, answer, user, userAnswer, loginUser, logOut, users, current, setCurrent, next, prev }}>
+        <MainContext.Provider value={{ finish, timeLeft, playAgain, timerFunc, result, answer, user, userAnswer, loginUser, logOut, users, current, setCurrent, next, prev }}>
             {props.children}
         </MainContext.Provider>
     );
