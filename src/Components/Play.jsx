@@ -3,24 +3,20 @@ import { MainContext } from '../Context/Index';
 import { useNavigate } from 'react-router-dom';
 
 const Play = () => {
-    const { user, timeLeft, users, timerFunc, current, next, prev, userAnswer, answer, finish, result, playAgain, timer } = useContext(MainContext);
+    const { user, users, current, next, prev, userAnswer, timeLeft, setTimeLeft, answer, finish, result, playAgain, timer } = useContext(MainContext);
     const navigate = useNavigate();
 
     useEffect(
         () => {
             if (user == null) {
                 navigate('/login');
-            }else{
-                timerFunc();
             }
         }, [user]
     )
 
     return (
         <div className='mt-3 w-[600px] mx-auto shadow p-3'>
-            <div>
-                {timeLeft > 0 ? (<h1 className={timeLeft < 10 ? 'text-red-600' : ''}>{timeLeft} seconds remaining</h1>) : timeLeft == 0 ? <div className='text-green-500'>Congratulation</div> : "" }
-            </div>
+            
             {
                 result == null
                     ?
@@ -48,7 +44,6 @@ const Play = () => {
                         <button className='bg-blue-500 text-white p-2 rounded' onClick={playAgain}>Play Again</button>
                     </div>
             }
-
         </div>
     );
 }
