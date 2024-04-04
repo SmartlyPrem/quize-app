@@ -61,43 +61,6 @@ const Index = (props) => {
         }, []
     )
 
-    const [timeLeft, setTimeLeft] = useState(30); // Initial countdown duration
-
-
-    useEffect(
-        () => {
-            timerFunc();
-            const getCountDown = localStorage.getItem('countDown')
-            if (getCountDown != 30) {
-                setTimeLeft(JSON.parse(getCountDown));
-            }
-        }, []
-    )
-
-    const timerFunc = ()=>{
-        if (timeLeft >= 0) {
-            localStorage.setItem("countDown", JSON.stringify(timeLeft));
-        }
-        const intervalId = setInterval(
-            () => {
-                setTimeLeft(
-                    (prevTimeLeft) => prevTimeLeft - 1
-                );
-
-            }, 1000);
-
-        // Clear interval when time is up or component unmounts
-        if(timeLeft == 0){
-            finish();
-        }
-        return () => clearInterval(intervalId);
-    }
-
-    useEffect(() => {
-        timerFunc();
-    }, [timeLeft]
-    );
-
     useEffect(
         () => {
             if (current != 0) localStorage.setItem("current", current);
@@ -144,21 +107,19 @@ const Index = (props) => {
             marks,
         }
         setResult(res);
-        setTimeLeft("Congratulation");
     }
 
     const playAgain = () => {
         setCurrent(0);
         setAnswer({});
         setResult(null);
-        setTimeLeft(30);
         localStorage.removeItem("answers");
         localStorage.removeItem("current", 0);
         localStorage.removeItem("countDown");
     }
 
     return (
-        <MainContext.Provider value={{ finish, timeLeft, playAgain, timerFunc, result, answer, user, userAnswer, loginUser, logOut, users, current, setCurrent, next, prev }}>
+        <MainContext.Provider value={{ finish, playAgain, result, answer, user, userAnswer, loginUser, logOut, users, current, setCurrent, next, prev }}>
             {props.children}
         </MainContext.Provider>
     );
